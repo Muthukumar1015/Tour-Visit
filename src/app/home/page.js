@@ -30,11 +30,11 @@ export default function HomePage() {
       background: "white",
       boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)",
       borderRadius: "15px",
-      padding: "25px 20px",
+      padding: "20px",
       width: "90%",
       maxWidth: "1100px",
       position: "absolute",
-      bottom: "5%",
+      bottom: "1%",
       left: "50%",
       transform: "translateX(-50%)",
       zIndex: 10,
@@ -42,23 +42,19 @@ export default function HomePage() {
     formInput: {
       width: "100%",
       border: "1px solid #ccc",
-      padding: "10px 14px",
-      borderRadius: "10px",
+      padding: "12px 16px",
+      borderRadius: "8px",
       fontSize: "16px",
     },
     searchButton: {
       background: "#0056ff",
       color: "white",
       fontWeight: "bold",
-      padding: "12px 25px",
-      borderRadius: "10px",
+      padding: "14px",
+      borderRadius: "8px",
       border: "none",
       fontSize: "18px",
       width: "100%",
-    },
-    counter: {
-      display: "flex",
-      alignItems: "center",
     },
     counterButton: {
       margin: "0 5px",
@@ -81,7 +77,7 @@ export default function HomePage() {
               minHeight: "100vh",
             }}
           >
-            <h1 className="display-5 fw-bold">
+            <h1 className="display-6 fw-bold">
               Best Travel{" "}
               <span className="text-primary position-relative">
                 Experience
@@ -91,12 +87,12 @@ export default function HomePage() {
                     height: "3px",
                     width: "100%",
                     backgroundColor: "#0056ff",
-                    marginTop: "5px",
+                   
                   }}
                 ></span>
               </span>
             </h1>
-            <p className="mt-3 fw-bold text-dark" style={{ fontSize: "18px" }}>
+            <p className="mt-2 fw-bold text-dark" style={{ fontSize: "18px" }}>
               Discover exciting tours, travel packages, and hotel reservations.
             </p>
           </Col>
@@ -114,10 +110,10 @@ export default function HomePage() {
           />
 
           {/* Form Box */}
-          <div className="container-fluid" style={{ ...styles.formBox }}>
-            <Row className="w-100 align-items-center">
+          <div className="container-fluid" style={styles.formBox}>
+            <Row className="w-100">
               {/* Location */}
-              <Col xs={12} md={4} className="mb-3">
+              <Col xs={12} className="mb-3">
                 <Form.Group controlId="location">
                   <Form.Label className="fw-bold">Location</Form.Label>
                   <Dropdown>
@@ -139,24 +135,25 @@ export default function HomePage() {
               </Col>
 
               {/* Date Picker */}
-              <Col xs={12} md={4} className="mb-3">
+              <Col xs={12} className="mb-3">
                 <Form.Group controlId="checkin">
                   <Form.Label className="fw-bold">Check in - Check out</Form.Label>
                   <DatePicker
-                    selectsRange={true}
-                    startDate={startDate}
-                    endDate={endDate}
-                    onChange={(update) => setDateRange(update)}
-                    isClearable={true}
-                    placeholderText="Select Dates"
-                    className="form-control"
-                    style={styles.formInput}
-                  />
+  selectsRange={true}
+  startDate={startDate}
+  endDate={endDate}
+  onChange={(update) => setDateRange(update)}
+  isClearable={true}
+  placeholderText="Select Dates"
+  className="form-control"
+  style={{ ...styles.formInput, height: "45px" }} // 👈 Same height as other inputs
+/>
+
                 </Form.Group>
               </Col>
 
               {/* Guests & Rooms */}
-              <Col xs={12} md={3} className="mb-3">
+              <Col xs={12} className="mb-3">
                 <Form.Group controlId="guests">
                   <Form.Label className="fw-bold">Guests</Form.Label>
                   <Dropdown>
@@ -167,7 +164,7 @@ export default function HomePage() {
                       {/* Adults */}
                       <div className="d-flex justify-content-between align-items-center mb-2">
                         <span>Adults</span>
-                        <div style={styles.counter}>
+                        <div>
                           <Button
                             variant="outline-primary"
                             style={styles.counterButton}
@@ -180,7 +177,7 @@ export default function HomePage() {
                           >
                             -
                           </Button>
-                          <span>{guestDetails.adults}</span>
+                          <span className="mx-2">{guestDetails.adults}</span>
                           <Button
                             variant="outline-primary"
                             style={styles.counterButton}
@@ -196,7 +193,7 @@ export default function HomePage() {
                       {/* Children */}
                       <div className="d-flex justify-content-between align-items-center mb-2">
                         <span>Children</span>
-                        <div style={styles.counter}>
+                        <div>
                           <Button
                             variant="outline-primary"
                             style={styles.counterButton}
@@ -209,7 +206,7 @@ export default function HomePage() {
                           >
                             -
                           </Button>
-                          <span>{guestDetails.children}</span>
+                          <span className="mx-2">{guestDetails.children}</span>
                           <Button
                             variant="outline-primary"
                             style={styles.counterButton}
