@@ -49,6 +49,15 @@ const CustomerReviews = () => {
     },
   ];
 
+  const brands = [
+    { id: 1, name: "Amazon", logo: "/images/amazon.svg" },
+    { id: 2, name: "AMD", logo: "/images/amd.svg" },
+    { id: 3, name: "Cisco", logo: "/images/cisco.svg" },
+    { id: 4, name: "Dropcam", logo: "/images/dropcam.svg" },
+    { id: 5, name: "Logitech", logo: "/images/logitech.svg" },
+    { id: 6, name: "Spotify", logo: "/images/spotify.svg" },
+  ];
+
   return (
     <>
       <Head>
@@ -91,9 +100,22 @@ const CustomerReviews = () => {
                     </article>
                   ))}
                 </Slider>
-
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted Brands Section */}
+      <section className="brands-section py-5">
+        <div className="container text-center">
+          <p className="fw-bold text-muted">Trusted by the world's best</p>
+          <div className="row justify-content-center align-items-center">
+            {brands.map((brand) => (
+              <div key={brand.id} className="col-4 col-md-2 mb-3">
+                <Image src={brand.logo} alt={brand.name} width={120} height={40} className="img-fluid" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -123,6 +145,16 @@ const CustomerReviews = () => {
         .review-slider {
           position: relative;
           z-index: 2;
+        }
+
+        .brands-section img {
+          filter: grayscale(100%);
+          transition: all 0.3s ease-in-out;
+        }
+
+        .brands-section img:hover {
+          filter: grayscale(0%);
+          transform: scale(1.1);
         }
 
         @media (max-width: 768px) {

@@ -10,7 +10,7 @@ import ExploreHotLocations from "@/app/home/ExploreHotLocations";
 import DealsAndDiscounts from "@/app/home/DealsAndDiscounts";
 import WhyLocalExpert from "./WhyLocalExpert";
 import CustomerReviews from "./CustomerReviews";
-
+import Head from "next/head";
 
 export default function HomePage() {
   const [dateRange, setDateRange] = useState([null, null]);
@@ -31,45 +31,12 @@ export default function HomePage() {
     { name: "Santorini", country: "Greece" },
   ];
 
-  const styles = {
-    formBox: {
-      background: "white",
-      boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)",
-      borderRadius: "15px",
-      padding: "20px",
-      width: "90%",
-      maxWidth: "1100px",
-      position: "absolute",
-      bottom: "1%",
-      left: "50%",
-      transform: "translateX(-50%)",
-      zIndex: 10,
-    },
-    formInput: {
-      width: "100%",
-      border: "1px solid #ccc",
-      padding: "12px 16px",
-      borderRadius: "8px",
-      fontSize: "16px",
-    },
-    searchButton: {
-      background: "#0056ff",
-      color: "white",
-      fontWeight: "bold",
-      padding: "14px",
-      borderRadius: "8px",
-      border: "none",
-      fontSize: "18px",
-      width: "100%",
-    },
-    counterButton: {
-      margin: "0 5px",
-      fontSize: "18px",
-    },
-  };
-
   return (
     <>
+      <Head>
+        <title>Best Travel Experience | Find Your Perfect Destination</title>
+      </Head>
+
       <Container fluid className="vh-100 d-flex align-items-center position-relative">
         <Row className="w-100 h-100 align-items-center">
           {/* Left Content */}
@@ -85,20 +52,17 @@ export default function HomePage() {
           >
             <h1 className="display-6 fw-bold">
               Best Travel{" "}
-              <span className="text-primary position-relative">
+              <span className="text-primary position-relative d-inline-block">
                 Experience
-                <span
-                  style={{
-                    display: "block",
-                    height: "3px",
-                    width: "100%",
-                    backgroundColor: "#0056ff",
-                   
-                  }}
-                ></span>
+                <img
+                  src="/images/underline.png"
+                  alt="Underline"
+                  className="position-absolute start-0"
+                  style={{ width: "100%", height: "20px", bottom: "-15px" }}
+                />
               </span>
             </h1>
-            <p className="mt-2 fw-bold text-dark" style={{ fontSize: "18px" }}>
+            <p className="mt-2 fw-bold text-dark fs-5">
               Discover exciting tours, travel packages, and hotel reservations.
             </p>
           </Col>
@@ -116,14 +80,14 @@ export default function HomePage() {
           />
 
           {/* Form Box */}
-          <div className="container-fluid" style={styles.formBox}>
-            <Row className="w-100">
+          <div className="container-fluid position-absolute start-50 translate-middle-x" style={{ bottom: "2%", zIndex: 10, maxWidth: "1100px" }}>
+            <Row className="shadow-lg bg-white rounded p-4">
               {/* Location */}
-              <Col xs={12} className="mb-3">
+              <Col xs={12} md={4} className="mb-3">
                 <Form.Group controlId="location">
                   <Form.Label className="fw-bold">Location</Form.Label>
                   <Dropdown>
-                    <Dropdown.Toggle variant="light" style={styles.formInput}>
+                    <Dropdown.Toggle variant="light" className="form-control text-start">
                       {location || "Where are you going?"}
                     </Dropdown.Toggle>
                     <Dropdown.Menu className="w-100">
@@ -141,88 +105,66 @@ export default function HomePage() {
               </Col>
 
               {/* Date Picker */}
-              <Col xs={12} className="mb-3">
+              <Col xs={12} md={4} className="mb-3">
                 <Form.Group controlId="checkin">
                   <Form.Label className="fw-bold">Check in - Check out</Form.Label>
                   <DatePicker
-  selectsRange={true}
-  startDate={startDate}
-  endDate={endDate}
-  onChange={(update) => setDateRange(update)}
-  isClearable={true}
-  placeholderText="Select Dates"
-  className="form-control"
-  style={{ ...styles.formInput, height: "45px" }} // 👈 Same height as other inputs
-/>
-
+                    selectsRange={true}
+                    startDate={startDate}
+                    endDate={endDate}
+                    onChange={(update) => setDateRange(update)}
+                    isClearable={true}
+                    placeholderText="Select Dates"
+                    className="form-control"
+                    style={{ height: "45px" }}
+                  />
                 </Form.Group>
               </Col>
 
               {/* Guests & Rooms */}
-              <Col xs={12} className="mb-3">
+              <Col xs={12} md={4} className="mb-3">
                 <Form.Group controlId="guests">
                   <Form.Label className="fw-bold">Guests</Form.Label>
                   <Dropdown>
-                    <Dropdown.Toggle variant="light" style={styles.formInput}>
+                    <Dropdown.Toggle variant="light" className="form-control text-start">
                       {`${guestDetails.adults} adults - ${guestDetails.children} children - ${guestDetails.rooms} rooms`}
                     </Dropdown.Toggle>
-                    <Dropdown.Menu className="guest-dropdown w-100 p-3">
+                    <Dropdown.Menu className="w-100 p-3">
                       {/* Adults */}
                       <div className="d-flex justify-content-between align-items-center mb-2">
                         <span>Adults</span>
                         <div>
-                          <Button
-                            variant="outline-primary"
-                            style={styles.counterButton}
-                            onClick={() =>
-                              setGuestDetails((prev) => ({
-                                ...prev,
-                                adults: Math.max(1, prev.adults - 1),
-                              }))
-                            }
-                          >
+                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, adults: Math.max(1, prev.adults - 1) }))}>
                             -
                           </Button>
                           <span className="mx-2">{guestDetails.adults}</span>
-                          <Button
-                            variant="outline-primary"
-                            style={styles.counterButton}
-                            onClick={() =>
-                              setGuestDetails((prev) => ({ ...prev, adults: prev.adults + 1 }))
-                            }
-                          >
+                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, adults: prev.adults + 1 }))}>
                             +
                           </Button>
                         </div>
                       </div>
-
                       {/* Children */}
                       <div className="d-flex justify-content-between align-items-center mb-2">
                         <span>Children</span>
                         <div>
-                          <Button
-                            variant="outline-primary"
-                            style={styles.counterButton}
-                            onClick={() =>
-                              setGuestDetails((prev) => ({
-                                ...prev,
-                                children: Math.max(0, prev.children - 1),
-                              }))
-                            }
-                          >
+                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, children: Math.max(0, prev.children - 1) }))}>
                             -
                           </Button>
                           <span className="mx-2">{guestDetails.children}</span>
-                          <Button
-                            variant="outline-primary"
-                            style={styles.counterButton}
-                            onClick={() =>
-                              setGuestDetails((prev) => ({
-                                ...prev,
-                                children: prev.children + 1,
-                              }))
-                            }
-                          >
+                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, children: prev.children + 1 }))}>
+                            +
+                          </Button>
+                        </div>
+                      </div>
+                      {/* Rooms */}
+                      <div className="d-flex justify-content-between align-items-center mb-2">
+                        <span>Rooms</span>
+                        <div>
+                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, rooms: Math.max(1, prev.rooms - 1) }))}>
+                            -
+                          </Button>
+                          <span className="mx-2">{guestDetails.rooms}</span>
+                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, rooms: prev.rooms + 1 }))}>
                             +
                           </Button>
                         </div>
@@ -234,20 +176,22 @@ export default function HomePage() {
 
               {/* Search Button */}
               <Col xs={12} className="text-center mt-3">
-                <Button style={styles.searchButton}>🔍 Search</Button>
+                <Button className="w-100 py-2 fw-bold" style={{ background: "#0056ff", color: "white" }}>
+                  🔍 Search
+                </Button>
               </Col>
             </Row>
           </div>
         </Row>
       </Container>
 
-      {/* ✅ Most Popular Tours Section */}
+      {/* Other Sections */}
       <MostPopularTours />
       <ChooseTourTypes />
       <ExploreHotLocations />
-      < DealsAndDiscounts />
-      < WhyLocalExpert />
-      < CustomerReviews />
+      <DealsAndDiscounts />
+      <WhyLocalExpert />
+      <CustomerReviews />
     </>
   );
 }

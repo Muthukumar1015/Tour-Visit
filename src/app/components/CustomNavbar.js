@@ -25,62 +25,46 @@ const CustomNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Internal CSS styles
-  const styles = {
-    navbar: {
-      zIndex: 1050,
-      position: "fixed",
-      top: 0,
-      width: "100%",
-      transition: "background-color 0.3s ease",
-      backgroundColor: navbarBg, // Dynamic background color
-      boxShadow: navbarBg === "white" ? "0px 4px 10px rgba(0, 0, 0, 0.1)" : "none",
-    },
-    logo: {
-      width: "100px",
-      height: "50px",
-    },
-    navToggle: {
-      borderColor: "transparent",
-    },
-  
-  };
-
   return (
-    <Navbar expand="lg" style={styles.navbar}>
+    <Navbar expand="lg" className="fixed-top" style={{ transition: "background-color 0.3s ease", backgroundColor: navbarBg, boxShadow: navbarBg === "white" ? "0px 4px 10px rgba(0, 0, 0, 0.1)" : "none" }}>
       <Container>
-        {/* Toggle Button for Mobile */}
-        <Navbar.Toggle aria-controls="navbar-nav" style={styles.navToggle} />
+        {/* Custom Toggle Button (☰ with 2 thick lines) */}
+        <Navbar.Toggle aria-controls="navbar-nav" className="border-0">
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "5px" }}>
+            <span style={{ display: "block", width: "30px", height: "4px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+            <span style={{ display: "block", width: "30px", height: "4px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+          </div>
+        </Navbar.Toggle>
 
         {/* Logo */}
         <Navbar.Brand as={Link} href="/">
-          <img src="/images/logo-dark.svg" alt="Logo" style={styles.logo} />
+          <img src="/images/logo-dark.svg" alt="Logo" style={{ width: "100px", height: "50px" }} />
         </Navbar.Brand>
 
         {/* Navbar Items */}
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown title="Home" id="home-dropdown" style={styles.dropdownMenu}>
+            <NavDropdown title="Home" id="home-dropdown">
               <NavDropdown.Item as={Link} href="/">Home 1</NavDropdown.Item>
               <NavDropdown.Item as={Link} href="/">Home 2</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title="Categories" id="categories-dropdown" style={styles.dropdownMenu}>
+            <NavDropdown title="Categories" id="categories-dropdown">
               <NavDropdown.Item as={Link} href="/">Category 1</NavDropdown.Item>
               <NavDropdown.Item as={Link} href="/">Category 2</NavDropdown.Item>
             </NavDropdown>
 
             <Nav.Link as={Link} href="/destinations">Destinations</Nav.Link>
 
-            <NavDropdown title="Blog" id="blog-dropdown" style={styles.dropdownMenu}>
+            <NavDropdown title="Blog" id="blog-dropdown">
               <NavDropdown.Item as={Link} href="/blog">Latest Posts</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title="Pages" id="pages-dropdown" style={styles.dropdownMenu}>
+            <NavDropdown title="Pages" id="pages-dropdown">
               <NavDropdown.Item as={Link} href="/about">About Us</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title="Dashboard" id="dashboard-dropdown" style={styles.dropdownMenu}>
+            <NavDropdown title="Dashboard" id="dashboard-dropdown">
               <NavDropdown.Item as={Link} href="/dashboard">My Dashboard</NavDropdown.Item>
             </NavDropdown>
 
