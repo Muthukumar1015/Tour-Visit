@@ -5,6 +5,12 @@ import { Container, Row, Col, Form, Button, Dropdown } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import MostPopularTours from "@/app/home/MostPopularTours";
+import ChooseTourTypes from "@/app/home/ChooseTourTypes";
+import ExploreHotLocations from "@/app/home/ExploreHotLocations";
+import DealsAndDiscounts from "@/app/home/DealsAndDiscounts";
+import WhyLocalExpert from "./WhyLocalExpert";
+import CustomerReviews from "./CustomerReviews";
+
 
 export default function HomePage() {
   const [dateRange, setDateRange] = useState([null, null]);
@@ -237,6 +243,11 @@ export default function HomePage() {
 
       {/* ✅ Most Popular Tours Section */}
       <MostPopularTours />
+      <ChooseTourTypes />
+      <ExploreHotLocations />
+      < DealsAndDiscounts />
+      < WhyLocalExpert />
+      < CustomerReviews />
     </>
   );
 }
