@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"; // ✅ Make sure Bootstrap is imported
 
 import CustomNavbar from "@/app/components/CustomNavbar";
+import Footer from "@/app/components/Footer"; // ✅ Import Footer component
 
 export default function RootLayout({ children }) {
   return (
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
       <body>
         <CustomNavbar /> {/* ✅ Navbar is here */}
         {children}
+        <Footer /> {/* ✅ Footer is added here */}
       </body>
     </html>
   );

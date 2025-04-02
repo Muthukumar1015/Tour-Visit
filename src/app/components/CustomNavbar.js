@@ -74,7 +74,11 @@ const CustomNavbar = () => {
           {/* Right-Side Buttons */}
           <Nav>
             <Button variant="primary" className="me-2">Become An Expert</Button>
-            <Button variant="outline-primary">Sign In / Register</Button>
+
+            {/* ✅ Link the Sign In / Register button to the sign-up page */}
+            <Link href="/signup" passHref>
+              <Button variant="outline-primary">Sign In / Register</Button>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

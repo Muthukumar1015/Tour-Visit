@@ -10,6 +10,8 @@ import ExploreHotLocations from "@/app/home/ExploreHotLocations";
 import DealsAndDiscounts from "@/app/home/DealsAndDiscounts";
 import WhyLocalExpert from "./WhyLocalExpert";
 import CustomerReviews from "./CustomerReviews";
+import InspirationSection from "./InspirationSection";
+
 import Head from "next/head";
 
 export default function HomePage() {
@@ -192,6 +194,8 @@ export default function HomePage() {
       <DealsAndDiscounts />
       <WhyLocalExpert />
       <CustomerReviews />
+      < InspirationSection />
     </>
   );
 }
+ 
