@@ -1,34 +1,23 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import fs from "fs";
-import path from "path";
+import GoogleProvider from "next-auth/providers/google";
+import { sendLoginEmail } from "@/app/lib/mail"; // Create this file
 
 export const authOptions = {
   providers: [
-    CredentialsProvider({
-      name: "Email & Password",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        const filePath = path.join(process.cwd(), "data", "users.json");
-        const users = JSON.parse(fs.readFileSync(filePath, "utf8"));
-
-        const user = users.find((u) => u.email === credentials.email && u.password === credentials.password);
-
-        if (user) {
-          return { id: "1", email: user.email };
-        } else {
-          throw new Error("Invalid email or password");
-        }
-      },
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
+  callbacks: {
+    async signIn({ user }) {
+      console.log("✅ User Signed In:", user.email);
+      await sendLoginEmail(user.email, user.name);
+      return true;
+    },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

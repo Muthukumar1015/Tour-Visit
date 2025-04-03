@@ -4,12 +4,13 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 const CustomNavbar = () => {
   const [navbarBg, setNavbarBg] = useState("transparent");
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   // ✅ Detect Scroll & Change Navbar Background
   useEffect(() => {
@@ -26,63 +27,61 @@ const CustomNavbar = () => {
   }, []);
 
   return (
-    <Navbar expand="lg" className="fixed-top" style={{ transition: "background-color 0.3s ease", backgroundColor: navbarBg, boxShadow: navbarBg === "white" ? "0px 4px 10px rgba(0, 0, 0, 0.1)" : "none" }}>
-      <Container>
-        {/* Custom Toggle Button (☰ with 2 thick lines) */}
-        <Navbar.Toggle aria-controls="navbar-nav" className="border-0">
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "5px" }}>
-            <span style={{ display: "block", width: "30px", height: "4px", backgroundColor: "#000", borderRadius: "2px" }}></span>
-            <span style={{ display: "block", width: "30px", height: "4px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+    <>
+      <Navbar
+        expand="lg"
+        className="fixed-top d-flex justify-content-between"
+        style={{
+          transition: "background-color 0.3s ease",
+          backgroundColor: navbarBg,
+          boxShadow: navbarBg === "white" ? "0px 4px 10px rgba(0, 0, 0, 0.1)" : "none",
+        }}
+      >
+        <Container className="d-flex align-items-center">
+          {/* ✅ Left Side - Logo + Toggle Button */}
+          <div className="d-flex align-items-center">
+            {/* Toggle Button */}
+            <button
+              className="border-0 bg-transparent p-2"
+              onClick={() => setShowOffcanvas(true)} // ✅ Opens the offcanvas menu
+              style={{ display: "flex", flexDirection: "column", gap: "4px" }}
+            >
+              <span style={{ width: "20px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+              <span style={{ width: "30px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+            </button>
+
+            {/* Logo */}
+            <Navbar.Brand as={Link} href="/" className="ms-3">
+              <img src="/images/logo-dark.svg" alt="Logo" style={{ width: "100px", height: "50px" }} />
+            </Navbar.Brand>
           </div>
-        </Navbar.Toggle>
 
-        {/* Logo */}
-        <Navbar.Brand as={Link} href="/">
-          <img src="/images/logo-dark.svg" alt="Logo" style={{ width: "100px", height: "50px" }} />
-        </Navbar.Brand>
-
-        {/* Navbar Items */}
-        <Navbar.Collapse id="navbar-nav">
-          <Nav className="me-auto">
-            <NavDropdown title="Home" id="home-dropdown">
-              <NavDropdown.Item as={Link} href="/">Home 1</NavDropdown.Item>
-              <NavDropdown.Item as={Link} href="/">Home 2</NavDropdown.Item>
-            </NavDropdown>
-
-            <NavDropdown title="Categories" id="categories-dropdown">
-              <NavDropdown.Item as={Link} href="/">Category 1</NavDropdown.Item>
-              <NavDropdown.Item as={Link} href="/">Category 2</NavDropdown.Item>
-            </NavDropdown>
-
-            <Nav.Link as={Link} href="/destinations">Destinations</Nav.Link>
-
-            <NavDropdown title="Blog" id="blog-dropdown">
-              <NavDropdown.Item as={Link} href="/blog">Latest Posts</NavDropdown.Item>
-            </NavDropdown>
-
-            <NavDropdown title="Pages" id="pages-dropdown">
-              <NavDropdown.Item as={Link} href="/about">About Us</NavDropdown.Item>
-            </NavDropdown>
-
-            <NavDropdown title="Dashboard" id="dashboard-dropdown">
-              <NavDropdown.Item as={Link} href="/dashboard">My Dashboard</NavDropdown.Item>
-            </NavDropdown>
-
-            <Nav.Link as={Link} href="/contact">Contact</Nav.Link>
-          </Nav>
-
-          {/* Right-Side Buttons */}
+          {/* ✅ Right Side - Sign In / Register */}
           <Nav>
-            <Button variant="primary" className="me-2">Become An Expert</Button>
+  <Link href="/auth/login" passHref>
+    <Button variant="primary">Sign In / Register</Button>
+  </Link>
+</Nav>
+        </Container>
+      </Navbar>
 
-            {/* ✅ Link the Sign In / Register button to the sign-up page */}
-            <Link href="/signup" passHref>
-              <Button variant="outline-primary">Sign In / Register</Button>
-            </Link>
+      {/* ✅ Offcanvas Sidebar Menu (Now Opens on Click) */}
+      <Offcanvas show={showOffcanvas} onHide={() => setShowOffcanvas(false)} placement="start">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Nav className="flex-column">
+            <Link href="/" className="nav-link" onClick={() => setShowOffcanvas(false)}>Home</Link>
+            <Link href="/destinations" className="nav-link" onClick={() => setShowOffcanvas(false)}>Destinations</Link>
+            <Link href="/blog" className="nav-link" onClick={() => setShowOffcanvas(false)}>Blog</Link>
+            <Link href="/about" className="nav-link" onClick={() => setShowOffcanvas(false)}>About Us</Link>
+            <Link href="/dashboard" className="nav-link" onClick={() => setShowOffcanvas(false)}>Dashboard</Link>
+            <Link href="/contact" className="nav-link" onClick={() => setShowOffcanvas(false)}>Contact</Link>
           </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
 };
 

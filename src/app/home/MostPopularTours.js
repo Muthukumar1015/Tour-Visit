@@ -1,9 +1,12 @@
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+"use client";
+
+import { Container, Card, Button } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { BsHeart } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { useRouter } from "next/navigation";
 
 const tours = [
   {
@@ -57,6 +60,8 @@ const tours = [
 ];
 
 export default function MostPopularTours() {
+  const router = useRouter();
+
   const settings = {
     dots: true,
     infinite: true,
@@ -70,79 +75,70 @@ export default function MostPopularTours() {
   };
 
   return (
-    <Container className="mt-5">
-      {/* SEO-friendly Header */}
-      <h2 className="fw-bold" style={{ fontSize: "28px" }}>Most Popular Tours</h2>
-      <p className="text-muted" style={{ fontSize: "16px" }}>
-        Discover top-rated tours and attractions from around the world.
-      </p>
+    <>
+      {/* ✅ Talk to Us Button - Fixed on Top Right */}
+      <Button 
+  className=" top-3 end-0 m-3 text-white d-flex align-items-center px-3 py-2 rounded-pill shadow"
+  style={{
+    backgroundColor: "#FF8C00", 
+    borderColor: "#FF8C00", 
+    zIndex: 1050,
+    fontSize: "14px",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)"
+  }}
+  onClick={() => router.push("/contact")}
+>
+  🗨️ Talk to Us
+</Button>
 
-      {/* Schema Markup for SEO */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          "itemListElement": tours.map((tour, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "name": tour.title,
-            "image": tour.image,
-            "url": "#",
-            "review": {
-              "@type": "Review",
-              "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": tour.rating,
-              },
-              "author": {
-                "@type": "Person",
-                "name": "Verified User"
-              }
-            },
-          })),
-        })}
-      </script>
 
-      <Slider {...settings} className="mt-4">
-        {tours.map((tour) => (
-          <Card key={tour.id} className="border-0 shadow-sm mx-2">
-            <div className="position-relative">
-              <Card.Img
-                variant="top"
-                src={tour.image}
-                alt={tour.title}  // ✅ SEO-friendly alt text
-                style={{ height: "auto", maxHeight: "250px", objectFit: "cover" }}
-              />
-              {tour.tag && (
-                <span className="badge bg-primary position-absolute top-0 start-0 m-2">
-                  {tour.tag}
-                </span>
-              )}
-              <Button variant="light" className="position-absolute top-0 end-0 m-2 border-0">
-                <BsHeart size={20} />
-              </Button>
-            </div>
-            <Card.Body>
-              <small className="text-muted">
-                {tour.duration} · {tour.category}
-              </small>
-              <Card.Title className="mt-2" style={{ fontSize: "16px" }}>
-                {tour.title}
-              </Card.Title>
-              <p className="text-muted" style={{ fontSize: "14px" }}>
-                {tour.location}
-              </p>
-              <div className="d-flex align-items-center">
-                {[...Array(5)].map((_, i) => (
-                  <FaStar key={i} color="#FFC107" size={14} />
-                ))}
-                <span className="ms-2 text-muted">{tour.reviews}</span>
+      <Container className="mt-5">
+        <h2 className="fw-bold" style={{ fontSize: "28px" }}>Most Popular Tours</h2>
+        <p className="text-muted" style={{ fontSize: "16px" }}>
+          Discover top-rated tours and attractions from around the world.
+        </p>
+
+        <Slider {...settings} className="mt-4">
+          {tours.map((tour) => (
+            <Card key={tour.id} className="border-0 shadow-sm mx-2">
+              <div className="position-relative">
+                <Card.Img
+                  variant="top"
+                  src={tour.image}
+                  alt={tour.title}
+                  style={{ height: "auto", maxHeight: "250px", objectFit: "cover" }}
+                />
+                {tour.tag && (
+                  <span className="badge bg-primary position-absolute top-0 start-0 m-2">
+                    {tour.tag}
+                  </span>
+                )}
+                <Button variant="light" className="position-absolute top-0 end-0 m-2 border-0">
+                  <BsHeart size={20} />
+                </Button>
               </div>
-              <p className="mt-2 fw-bold">From {tour.price}</p>
-            </Card.Body>
-          </Card>
-        ))}
-      </Slider>
-    </Container>
+              <Card.Body>
+                <small className="text-muted">
+                  {tour.duration} · {tour.category}
+                </small>
+                <Card.Title className="mt-2" style={{ fontSize: "16px" }}>
+                  {tour.title}
+                </Card.Title>
+                <p className="text-muted" style={{ fontSize: "14px" }}>
+                  {tour.location}
+                </p>
+                <div className="d-flex align-items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar key={i} color="#FFC107" size={14} />
+                  ))}
+                  <span className="ms-2 text-muted">{tour.reviews}</span>
+                </div>
+                <p className="mt-2 fw-bold">From {tour.price}</p>
+              </Card.Body>
+            </Card>
+          ))}
+        </Slider>
+      </Container>
+    </>
   );
 }
