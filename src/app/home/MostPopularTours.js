@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
 
 const tours = [
   {
@@ -76,21 +77,28 @@ export default function MostPopularTours() {
 
   return (
     <>
+      <Head>
+        <title>Most Popular Tours | Explore Top Destinations</title>
+        <meta name="description" content="Discover top-rated tours and attractions from around the world. Book now for an unforgettable experience." />
+      </Head>
+
       {/* ✅ Talk to Us Button - Fixed on Top Right */}
       <Button 
-  className=" top-3 end-0 m-3 text-white d-flex align-items-center px-3 py-2 rounded-pill shadow"
-  style={{
-    backgroundColor: "#FF8C00", 
-    borderColor: "#FF8C00", 
-    zIndex: 1050,
-    fontSize: "14px",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)"
-  }}
-  onClick={() => router.push("/contact")}
->
-  🗨️ Talk to Us
-</Button>
-
+        className=" top-3 end-0 m-3 text-white d-flex align-items-center px-3 py-2 rounded-pill shadow"
+        style={{
+          backgroundColor: "#FF8C00", 
+          borderColor: "#FF8C00", 
+          zIndex: 1050,
+          fontSize: "14px",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)"
+        }}
+        onClick={() => {
+          console.log("Navigating to /popular-destinations");
+          router.push("/popular-destinations"); // Ensure the page exists
+        }}
+      >
+        🗨️ Talk to Us
+      </Button>
 
       <Container className="mt-5">
         <h2 className="fw-bold" style={{ fontSize: "28px" }}>Most Popular Tours</h2>

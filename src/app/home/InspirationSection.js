@@ -70,12 +70,12 @@ const InspirationSection = () => {
               Join us! Our members can access savings of up to 50% and earn Trip Coins while booking.
             </p>
             <div className="d-flex justify-content-center gap-3">
-              <Link href="/signin" passHref>
+              <Link href="/auth/login" passHref>
                 <button className="btn btn-primary">
                   Sign In <span className="ms-1">↗</span>
                 </button>
               </Link>
-              <Link href="/register" passHref>
+              <Link href="/auth/login" passHref>
                 <button className="btn btn-outline-primary">
                   Register <span className="ms-1">↗</span>
                 </button>
