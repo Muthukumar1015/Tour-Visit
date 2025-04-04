@@ -51,11 +51,15 @@ export default function Recommended() {
             style={{ transform: `translateX(-${startIndex * (100 / itemsPerView)}%)` }}
           >
             {recommendedItems.map((item) => (
-              <div
-                className="card recommended-card"
-                key={item.id}
-                onClick={() => router.push(`/details/${item.id}`)}
-              >
+              <div className="card recommended-card" key={item.id}>
+                {/* Select Room Button */}
+                <button
+                  className="btn btn-primary btn-sm select-room-btn"
+                  onClick={() => router.push(`/Hotel-Booking/${item.id}`)}
+                >
+                  Select Room
+                </button>
+
                 <img src={item.img} alt={item.title} className="card-img-top" />
                 <div className="card-body">
                   <h5 className="card-title">{item.title}</h5>
@@ -94,6 +98,9 @@ export default function Recommended() {
           min-width: 25%;
           max-width: 25%;
           transition: transform 0.3s ease-in-out;
+          position: relative;
+          border-radius: 10px;
+          overflow: hidden;
         }
 
         .recommended-card:hover {
@@ -140,6 +147,16 @@ export default function Recommended() {
 
         .arrow-icon:hover {
           color: #007bff;
+        }
+
+        /* Positioning the Select Room Button */
+        .select-room-btn {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 0.8rem;
+          padding: 5px 10px;
+          border-radius: 5px;
         }
 
         /* Responsive Design */
