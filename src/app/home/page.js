@@ -11,7 +11,6 @@ import DealsAndDiscounts from "@/app/home/DealsAndDiscounts";
 import WhyLocalExpert from "./WhyLocalExpert";
 import CustomerReviews from "./CustomerReviews";
 import InspirationSection from "./InspirationSection";
-
 import Head from "next/head";
 
 export default function HomePage() {
@@ -41,15 +40,17 @@ export default function HomePage() {
 
       <Container fluid className="vh-100 d-flex align-items-center position-relative">
         <Row className="w-100 h-100 align-items-center">
-          {/* Left Content */}
+          
+          {/* Left Content (Text Section) */}
           <Col
             lg={6}
-            className="d-flex flex-column justify-content-center px-4 text-dark text-center text-lg-start"
+            className="d-flex flex-column justify-content-start px-4 text-dark text-center text-lg-start"
             style={{
               backgroundImage: 'url("/images/bg2.svg")',
               backgroundSize: "cover",
               backgroundPosition: "center",
               minHeight: "100vh",
+              paddingTop: "120px", // Moves text lower
             }}
           >
             <h1 className="display-6 fw-bold">
@@ -81,9 +82,13 @@ export default function HomePage() {
             }}
           />
 
-          {/* Form Box */}
-          <div className="container-fluid position-absolute start-50 translate-middle-x" style={{ bottom: "2%", zIndex: 10, maxWidth: "1100px" }}>
+          {/* 🔥 Centered Search Box */}
+          <div 
+            className="container-fluid position-absolute start-50 top-50 translate-middle"
+            style={{ zIndex: 10, maxWidth: "1100px" }}
+          >
             <Row className="shadow-lg bg-white rounded p-4">
+              
               {/* Location */}
               <Col xs={12} md={4} className="mb-3">
                 <Form.Group controlId="location">
@@ -118,7 +123,6 @@ export default function HomePage() {
                     isClearable={true}
                     placeholderText="Select Dates"
                     className="form-control"
-                    style={{ height: "45px" }}
                   />
                 </Form.Group>
               </Col>
@@ -132,45 +136,38 @@ export default function HomePage() {
                       {`${guestDetails.adults} adults - ${guestDetails.children} children - ${guestDetails.rooms} rooms`}
                     </Dropdown.Toggle>
                     <Dropdown.Menu className="w-100 p-3">
-                      {/* Adults */}
-                      <div className="d-flex justify-content-between align-items-center mb-2">
-                        <span>Adults</span>
-                        <div>
-                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, adults: Math.max(1, prev.adults - 1) }))}>
-                            -
-                          </Button>
-                          <span className="mx-2">{guestDetails.adults}</span>
-                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, adults: prev.adults + 1 }))}>
-                            +
-                          </Button>
+                      {["adults", "children", "rooms"].map((type, index) => (
+                        <div key={index} className="d-flex justify-content-between align-items-center mb-2">
+                          <span>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                          <div>
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={() =>
+                                setGuestDetails((prev) => ({
+                                  ...prev,
+                                  [type]: Math.max(1, prev[type] - 1),
+                                }))
+                              }
+                            >
+                              -
+                            </Button>
+                            <span className="mx-2">{guestDetails[type]}</span>
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={() =>
+                                setGuestDetails((prev) => ({
+                                  ...prev,
+                                  [type]: prev[type] + 1,
+                                }))
+                              }
+                            >
+                              +
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                      {/* Children */}
-                      <div className="d-flex justify-content-between align-items-center mb-2">
-                        <span>Children</span>
-                        <div>
-                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, children: Math.max(0, prev.children - 1) }))}>
-                            -
-                          </Button>
-                          <span className="mx-2">{guestDetails.children}</span>
-                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, children: prev.children + 1 }))}>
-                            +
-                          </Button>
-                        </div>
-                      </div>
-                      {/* Rooms */}
-                      <div className="d-flex justify-content-between align-items-center mb-2">
-                        <span>Rooms</span>
-                        <div>
-                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, rooms: Math.max(1, prev.rooms - 1) }))}>
-                            -
-                          </Button>
-                          <span className="mx-2">{guestDetails.rooms}</span>
-                          <Button variant="outline-primary" size="sm" onClick={() => setGuestDetails((prev) => ({ ...prev, rooms: prev.rooms + 1 }))}>
-                            +
-                          </Button>
-                        </div>
-                      </div>
+                      ))}
                     </Dropdown.Menu>
                   </Dropdown>
                 </Form.Group>
@@ -194,7 +191,7 @@ export default function HomePage() {
       <DealsAndDiscounts />
       <WhyLocalExpert />
       <CustomerReviews />
-      < InspirationSection />
+      <InspirationSection />
     </>
   );
 }

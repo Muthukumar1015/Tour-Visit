@@ -13,10 +13,10 @@ export default function Facilities() {
       {/* Hero Section */}
      
 
-      <Container className="mt-5">
-        <h2 className="text-center fw-bold mb-4">🏨 Our Premium Facilities</h2>
+      <Container className="mt- 5">
+        <h2 className="text-center fw-bold mb-4 mt-5">🏨 Our Premium Facilities</h2>
 
-        <Row className="g-4">
+        <Row className="g-4 mt-5">
           {[
             { title: '🛁 Bathroom', items: ['Luxury Towels', 'Jacuzzi', 'Private Spa', 'Designer Toiletries', 'Rain Shower'], color: 'info' },
             { title: '🛏️ Bedroom', items: ['King-Size Bed', 'Elegant Decor', 'Pillow Menu', 'Smart Lighting', 'Exclusive Suite'], color: 'primary' },

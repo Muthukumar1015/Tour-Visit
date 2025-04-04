@@ -40,7 +40,7 @@ export default function HotelDetails() {
             src={mainImage} 
             alt="Main hotel" 
             className="img-fluid w-60 shadow rounded" 
-            style={{ maxHeight: '400px', objectFit: 'cover' }} 
+            style={{ maxHeight: '400px', objectFit: 'cover',marginTop : '5%' }} 
           />
         </div>
 
@@ -60,8 +60,8 @@ export default function HotelDetails() {
         </Row>
 
         {/* Property Highlights */}
-        <h2 className="fw-bold mt-4">Property Highlights</h2>
-        <Row className="text-center g-3">
+        <h2 className="fw-bold mt-5">Property Highlights</h2>
+        <Row className="text-center g-3 mt-5">
           <Col><FaCity size={30} /> <p>In London City Centre</p></Col>
           <Col><FaShuttleVan size={30} /> <p>Airport Transfer</p></Col>
           <Col><FaConciergeBell size={30} /> <p>24-hour Front Desk</p></Col>
@@ -70,11 +70,11 @@ export default function HotelDetails() {
 
         {/* Overview */}
         <h3 className="fw-semibold mt-5">Overview</h3>
-        <p>You can book directly for the best price. The property features a comfortable 2-room terraced house with cozy furnishings.</p>
+        <p className="mt-3">You can book directly for the best price. The property features a comfortable 2-room terraced house with cozy furnishings.</p>
 
         {/* Popular Facilities */}
         <h3 className="fw-semibold mt-5">Most Popular Facilities</h3>
-        <Row className="text-center g-3">
+        <Row className="text-center g-3 mt-5">
           <Col><FaSmokingBan size={30} /> <p>Non-smoking Rooms</p></Col>
           <Col><FaParking size={30} /> <p>Parking</p></Col>
           <Col><FaUtensils size={30} /> <p>Kitchen</p></Col>

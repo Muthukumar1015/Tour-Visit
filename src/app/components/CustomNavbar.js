@@ -35,37 +35,46 @@ const CustomNavbar = () => {
           transition: "background-color 0.3s ease",
           backgroundColor: navbarBg,
           boxShadow: navbarBg === "white" ? "0px 4px 10px rgba(0, 0, 0, 0.1)" : "none",
+          padding: "10px 20px",
         }}
       >
-        <Container className="d-flex align-items-center">
-          {/* ✅ Left Side - Logo + Toggle Button */}
-          <div className="d-flex align-items-center">
-            {/* Toggle Button */}
-            <button
-              className="border-0 bg-transparent p-2"
-              onClick={() => setShowOffcanvas(true)} // ✅ Opens the offcanvas menu
-              style={{ display: "flex", flexDirection: "column", gap: "4px" }}
-            >
-              <span style={{ width: "20px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
-              <span style={{ width: "30px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
-            </button>
+        <Container className="d-flex align-items-center" style={{ position: "relative" }}>
+          {/* ✅ Left Side - Toggle Button */}
+          <button
+            className="border-0 bg-transparent p-2"
+            onClick={() => setShowOffcanvas(true)}
+            style={{
+              position: "absolute",
+              left: "15px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            <span style={{ width: "30px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+            <span style={{ width: "20px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+          </button>
 
-            {/* Logo */}
-            <Navbar.Brand as={Link} href="/" className="ms-3">
-              <img src="/images/logo-dark.svg" alt="Logo" style={{ width: "100px", height: "50px" }} />
-            </Navbar.Brand>
-          </div>
+          {/* ✅ Center - Logo */}
+          <Navbar.Brand as={Link} href="/" style={{ margin: "0 auto" }}>
+            <img src="/images/logo-dark.svg" alt="Logo" style={{ width: "100px", height: "auto" }} />
+          </Navbar.Brand>
 
           {/* ✅ Right Side - Sign In / Register */}
-          <Nav>
-  <Link href="/auth/login" passHref>
-    <Button variant="primary">Sign In / Register</Button>
-  </Link>
-</Nav>
+          <Nav className="sign-in-btn" style={{ display: "block" }}>
+            <Link href="/auth/login" passHref>
+              <Button variant="primary">Sign In / Register</Button>
+            </Link>
+          </Nav>
         </Container>
       </Navbar>
 
-      {/* ✅ Offcanvas Sidebar Menu (Now Opens on Click) */}
+      {/* ✅ Offcanvas Sidebar Menu */}
       <Offcanvas show={showOffcanvas} onHide={() => setShowOffcanvas(false)} placement="start">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Menu</Offcanvas.Title>
@@ -73,7 +82,7 @@ const CustomNavbar = () => {
         <Offcanvas.Body>
           <Nav className="flex-column">
             <Link href="/" className="nav-link" onClick={() => setShowOffcanvas(false)}>Home</Link>
-            <Link href="/destinations" className="nav-link" onClick={() => setShowOffcanvas(false)}>Destinations</Link>
+            <Link href="/popular-destinations" className="nav-link" onClick={() => setShowOffcanvas(false)}>Destinations</Link>
             <Link href="/blog" className="nav-link" onClick={() => setShowOffcanvas(false)}>Blog</Link>
             <Link href="/about" className="nav-link" onClick={() => setShowOffcanvas(false)}>About Us</Link>
             <Link href="/dashboard" className="nav-link" onClick={() => setShowOffcanvas(false)}>Dashboard</Link>
@@ -81,6 +90,15 @@ const CustomNavbar = () => {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
+
+      {/* ✅ Internal CSS for Mobile Responsive Adjustments */}
+      <style jsx>{`
+        @media (max-width: 991px) {
+          .sign-in-btn {
+            display: none;
+          }
+        }
+      `}</style>
     </>
   );
 };

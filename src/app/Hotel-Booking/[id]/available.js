@@ -65,6 +65,7 @@ export default function AvailableRooms() {
           display: "inline-block",
           paddingBottom: "5px",
           animation: "fadeIn 1.5s ease-in-out",
+          marginTop :"5%"
           
         }}
       >
