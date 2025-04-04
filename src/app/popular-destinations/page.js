@@ -2,6 +2,8 @@
 
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
+import TravelOffers from "@/app/popular-destinations/TravelOffers"; // Import TravelOffers Component
+import Recommended from "@/app/popular-destinations/Recommended";
 
 const destinations = [
   { id: 1, name: "New York", img: "/images/ny.jpg" },
@@ -21,8 +23,8 @@ export default function PopularDestinations() {
 
       <section className="popular-destinations py-5">
         <div className="container">
-          {/* 🔥 Centered Title with Effect */}
-          <div className="text-center mb-4">
+          {/* 🔥 Centered Title with Bold Effect */}
+          <div className="text-center mb-5">
             <h2 className="section-heading">Popular Destinations</h2>
             <p className="text-muted">These popular destinations have a lot to offer</p>
           </div>
@@ -41,27 +43,34 @@ export default function PopularDestinations() {
         </div>
       </section>
 
+      {/* 🔥 Travel Offers Section Below Popular Destinations */}
+      <TravelOffers />
+      <Recommended />
+
       <style jsx>{`
         /* 🔥 Styled Section Heading */
         .section-heading {
-          font-size: 2.5rem;
-          font-weight: 700;
-          background: linear-gradient(90deg, #007cf0, #00dfd8);
+          font-size: 2.8rem;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          background: linear-gradient(90deg,rgb(82, 107, 130),rgb(44, 144, 161));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           display: inline-block;
           position: relative;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.8rem;
+          margin-top:5%;
         }
 
         .section-heading::after {
           content: "";
-          width: 60%;
-          height: 4px;
-          background: #00dfd8;
+          width: 50%;
+          height: 5px;
+          background:rgb(28, 123, 120);
           position: absolute;
-          left: 20%;
-          bottom: -8px;
+          left: 25%;
+          bottom: -10px;
           border-radius: 5px;
           animation: pulse 2s infinite;
         }
@@ -95,7 +104,7 @@ export default function PopularDestinations() {
 
         /* 🔥 Destination Cards */
         .card {
-          min-width: 220px;
+          min-width: 250px;
           max-width: 250px;
           height: 300px;
           border-radius: 10px;
@@ -115,17 +124,20 @@ export default function PopularDestinations() {
           object-fit: cover;
         }
 
+        /* 🔥 Updated Card Title Styling */
         .card-title {
           position: absolute;
-          bottom: 10px;
+          bottom: 15px; /* ⬇ Title moved lower */
           left: 50%;
           transform: translateX(-50%);
           color: white;
-          font-size: 16px;
-          font-weight: bold;
-          background: rgba(0, 0, 0, 0.6);
-          padding: 5px 10px;
+          font-size: 18px; /* Bigger text */
+          font-weight: 800; /* Bolder */
+          background: rgba(0, 0, 0, 0.7);
+          padding: 8px 12px;
           border-radius: 5px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
 
         /* 🔥 Mobile Responsive Fixes */
@@ -135,7 +147,7 @@ export default function PopularDestinations() {
           }
           
           .section-heading {
-            font-size: 2rem;
+            font-size: 2.4rem;
           }
 
           .card {
@@ -145,14 +157,14 @@ export default function PopularDestinations() {
           }
 
           .card-title {
-            font-size: 14px;
-            padding: 3px 8px;
+            font-size: 16px;
+            padding: 6px 10px;
           }
         }
 
         @media (max-width: 480px) {
           .section-heading {
-            font-size: 1.8rem;
+            font-size: 2rem;
           }
 
           .card {
@@ -162,8 +174,8 @@ export default function PopularDestinations() {
           }
 
           .card-title {
-            font-size: 12px;
-            padding: 2px 6px;
+            font-size: 14px;
+            padding: 4px 8px;
           }
         }
       `}</style>
