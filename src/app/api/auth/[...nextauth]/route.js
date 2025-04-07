@@ -1,17 +1,48 @@
+// File: src/app/api/auth/[...nextauth]/route.js
+
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-// Define the authOptions *inside* the handler file, not exported directly
+// Temporary in-memory user list (replace with DB later)
+const users = [
+  { email: "demo@example.com", password: "demo123" } // 👈 for testing
+];
+
 const handler = NextAuth({
   providers: [
+    // ✅ Credentials Provider (Email/Password login)
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const user = users.find(
+          (u) =>
+            u.email === credentials.email && u.password === credentials.password
+        );
+
+        if (user) {
+          return { id: user.email, email: user.email };
+        }
+
+        return null; // ❌ invalid credentials
+      },
+    }),
+
+    // ✅ Google Provider
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+
   secret: process.env.NEXTAUTH_SECRET,
+
   pages: {
-    signIn: "/auth/login",
+    signIn: "/auth/sign-in", // Custom login page
   },
 });
 
