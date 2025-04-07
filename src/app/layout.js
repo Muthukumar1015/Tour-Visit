@@ -3,8 +3,9 @@
 import { SessionProvider } from "next-auth/react";
 import "bootstrap/dist/css/bootstrap.min.css"; // ✅ Make sure Bootstrap is imported
 
-import CustomNavbar from "@/app/components/CustomNavbar";
-import Footer from "@/app/components/Footer"; 
+import CustomNavbar from '@/app/components/CustomNavbar';
+import Footer from '@/app/components/Footer';
+
 
 export default function RootLayout({ children }) {
   return (

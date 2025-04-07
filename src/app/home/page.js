@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import MostPopularTours from "./MostPopularTours";
 import ChooseTourTypes from "./ChooseTourTypes";
 import ExploreHotLocations from "./ExploreHotLocations";
-import DealsAndDiscounts from ".DealsAndDiscounts";
+import DealsAndDiscounts from "./DealsAndDiscounts";
 import WhyLocalExpert from "./WhyLocalExpert";
 import CustomerReviews from "./CustomerReviews";
 import InspirationSection from "./InspirationSection";
