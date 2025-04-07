@@ -11,23 +11,20 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 const CustomNavbar = () => {
   const [navbarBg, setNavbarBg] = useState("transparent");
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-  const [animateClose, setAnimateClose] = useState(false);
 
+  // ✅ Detect Scroll & Change Navbar Background
   useEffect(() => {
     const handleScroll = () => {
-      setNavbarBg(window.scrollY > 50 ? "white" : "transparent");
+      if (window.scrollY > 50) {
+        setNavbarBg("white"); // Change to white on scroll
+      } else {
+        setNavbarBg("transparent"); // Keep transparent at the top
+      }
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleClose = () => {
-    setAnimateClose(true);
-    setTimeout(() => {
-      setShowOffcanvas(false);
-      setAnimateClose(false);
-    }, 400);
-  };
 
   return (
     <>
@@ -37,12 +34,12 @@ const CustomNavbar = () => {
         style={{
           transition: "background-color 0.3s ease",
           backgroundColor: navbarBg,
-          boxShadow: navbarBg === "white" ? "0 4px 10px rgba(0,0,0,0.1)" : "none",
+          boxShadow: navbarBg === "white" ? "0px 4px 10px rgba(0, 0, 0, 0.1)" : "none",
           padding: "10px 20px",
         }}
       >
         <Container className="d-flex align-items-center" style={{ position: "relative" }}>
-          {/* Left - Hamburger */}
+          {/* ✅ Left Side - Toggle Button */}
           <button
             className="border-0 bg-transparent p-2"
             onClick={() => setShowOffcanvas(true)}
@@ -54,6 +51,8 @@ const CustomNavbar = () => {
               display: "flex",
               flexDirection: "column",
               gap: "5px",
+              background: "none",
+              border: "none",
               cursor: "pointer",
             }}
           >
@@ -61,12 +60,12 @@ const CustomNavbar = () => {
             <span style={{ width: "20px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
           </button>
 
-          {/* Center - Logo */}
+          {/* ✅ Center - Logo */}
           <Navbar.Brand as={Link} href="/" style={{ margin: "0 auto" }}>
             <img src="/images/logo-dark.svg" alt="Logo" style={{ width: "100px", height: "auto" }} />
           </Navbar.Brand>
 
-          {/* Right - Sign In */}
+          {/* ✅ Right Side - Sign In / Register */}
           <Nav className="sign-in-btn" style={{ display: "block" }}>
             <Link href="/auth/login" passHref>
               <Button variant="primary">Sign In / Register</Button>
@@ -75,78 +74,29 @@ const CustomNavbar = () => {
         </Container>
       </Navbar>
 
-      {/* Offcanvas with Animation */}
-      {showOffcanvas && (
-        <Offcanvas
-          show={true}
-          onHide={handleClose}
-          placement="top"
-          className={animateClose ? "slide-from-center-out" : "slide-from-top-center"}
-          backdropClassName="offcanvas-backdrop-fade"
-          style={{
-            height: "100vh",
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <Offcanvas.Header closeButton onClick={handleClose}>
-            <Offcanvas.Title>Menu</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body className="d-flex flex-column align-items-center justify-content-center">
-            <Nav className="flex-column text-center">
-              <Link href="/" className="nav-link" onClick={handleClose}>Home</Link>
-              <Link href="/popular-destinations" className="nav-link" onClick={handleClose}>Destinations</Link>
-              <Link href="/blog" className="nav-link" onClick={handleClose}>Blog</Link>
-              <Link href="/about" className="nav-link" onClick={handleClose}>About Us</Link>
-              <Link href="/dashboard" className="nav-link" onClick={handleClose}>Dashboard</Link>
-              <Link href="/contact" className="nav-link" onClick={handleClose}>Contact</Link>
-            </Nav>
-          </Offcanvas.Body>
-        </Offcanvas>
-      )}
+      {/* ✅ Offcanvas Sidebar Menu */}
+      <Offcanvas show={showOffcanvas} onHide={() => setShowOffcanvas(false)} placement="start">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Nav className="flex-column">
+            <Link href="/" className="nav-link" onClick={() => setShowOffcanvas(false)}>Home</Link>
+            <Link href="/popular-destinations" className="nav-link" onClick={() => setShowOffcanvas(false)}>Destinations</Link>
+            <Link href="/blog" className="nav-link" onClick={() => setShowOffcanvas(false)}>Blog</Link>
+            <Link href="/about" className="nav-link" onClick={() => setShowOffcanvas(false)}>About Us</Link>
+            <Link href="/dashboard" className="nav-link" onClick={() => setShowOffcanvas(false)}>Dashboard</Link>
+            <Link href="/contact" className="nav-link" onClick={() => setShowOffcanvas(false)}>Contact</Link>
+          </Nav>
+        </Offcanvas.Body>
+      </Offcanvas>
 
-      {/* ✅ Internal CSS */}
-      <style jsx global>{`
+      {/* ✅ Internal CSS for Mobile Responsive Adjustments */}
+      <style jsx>{`
         @media (max-width: 991px) {
           .sign-in-btn {
             display: none;
           }
-        }
-
-        @keyframes fromTopToCenter {
-          0% {
-            transform: translateY(-100%);
-            opacity: 0;
-          }
-          100% {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-
-        @keyframes fromCenterToBottom {
-          0% {
-            transform: translateY(0);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(100%);
-            opacity: 0;
-          }
-        }
-
-        .offcanvas.slide-from-top-center {
-          animation: fromTopToCenter 0.4s ease-out forwards;
-        }
-
-        .offcanvas.slide-from-center-out {
-          animation: fromCenterToBottom 0.4s ease-in forwards;
-        }
-
-        .offcanvas-backdrop-fade {
-          opacity: 0.5 !important;
-          transition: opacity 0.4s ease;
         }
       `}</style>
     </>
