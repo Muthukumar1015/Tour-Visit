@@ -2,8 +2,8 @@
 
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
-import TravelOffers from "@/app/popular-destinations/TravelOffers"; // Import TravelOffers Component
-import Recommended from "@/app/popular-destinations/Recommended";
+import TravelOffers from "./TravelOffers"; // Import TravelOffers Component
+import Recommended from "./Recommended";
 
 const destinations = [
   { id: 1, name: "New York", img: "/images/ny.jpg" },

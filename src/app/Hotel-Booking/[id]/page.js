@@ -7,8 +7,8 @@ import {
   FaCity, FaShuttleVan, FaConciergeBell, FaTv, 
   FaWifi, FaSmokingBan, FaParking, FaUtensils, FaShieldAlt 
 } from 'react-icons/fa';
-import AvailableRooms from '@/app/Hotel-Booking/[id]/available'; // Ensure this path is correct
-import Facilities from '@/app/Hotel-Booking/[id]/facility';
+import AvailableRooms from './available'; // Ensure this path is correct
+import Facilities from './facility';
 
 // Define image files
 const hotelImages = [
