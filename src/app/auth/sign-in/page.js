@@ -21,6 +21,8 @@ export default function LoginPage() {
       console.log("🪪 Access Token:", session?.accessToken);
       console.log("📧 Email:", session?.user?.email);
       router.push("/profile");
+      console.log("🧠 Session:", session);
+      console.log("🔄 Status:", status);
     }
   }, [status, session, router]);
 
@@ -95,17 +97,18 @@ export default function LoginPage() {
         <div className="text-muted mb-2">Or continue with</div>
 
         <div className="d-flex justify-content-center gap-3 mb-3">
-          <button
-            className="btn btn-light rounded-circle border"
-            onClick={() =>
-              signIn("google", {
-                callbackUrl: "/profile",
-                redirect: true, // more reliable on mobile
-              })
-            }
-          >
-            <FaGoogle />
-          </button>
+        <button
+  className="btn btn-light rounded-circle border"
+  onClick={() =>
+    signIn("google", {
+      callbackUrl: "/profile",
+      prompt: "select_account",
+    })
+  }
+>
+  <FaGoogle />
+</button>
+
 
           <button
             className="btn btn-light rounded-circle border"
