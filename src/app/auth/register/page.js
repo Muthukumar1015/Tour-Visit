@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
@@ -13,15 +13,16 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!email || !password) {
       setError("Please fill in all fields.");
       return;
     }
 
+    // Store to localStorage (demo only - use DB in production)
     const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-
     const userExists = storedUsers.find((u) => u.email === email);
+
     if (userExists) {
       setError("User already exists. Please sign in.");
       return;
@@ -29,9 +30,20 @@ export default function RegisterPage() {
 
     storedUsers.push({ email, password });
     localStorage.setItem("users", JSON.stringify(storedUsers));
-
     setError("");
-    router.push("/auth/sign-in");
+
+    // Auto-login after registration using credentials
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (result?.ok) {
+      router.push("/home");
+    } else {
+      setError("Registration successful, but login failed.");
+    }
   };
 
   return (
@@ -68,28 +80,27 @@ export default function RegisterPage() {
           </span>
         </div>
 
-        {/* Register Button */}
         <button className="btn btn-primary w-100 rounded-pill mb-3" onClick={handleRegister}>
           Register
         </button>
 
-        {/* Divider */}
         <div className="text-muted mb-2">or continue with</div>
 
-        {/* Social Icons */}
         <div className="d-flex justify-content-center gap-3 mb-3">
-          <button className="btn btn-light rounded-circle border" onClick={() => signIn("google")}>
+          <button
+            className="btn btn-light rounded-circle border"
+            onClick={() => signIn("google")}
+          >
             <FaGoogle />
           </button>
-          <button className="btn btn-light rounded-circle border" onClick={() => signIn("apple")}>
+          <button className="btn btn-light rounded-circle border" disabled>
             <FaApple />
           </button>
-          <button className="btn btn-light rounded-circle border" onClick={() => signIn("facebook")}>
+          <button className="btn btn-light rounded-circle border" disabled>
             <FaFacebook />
           </button>
         </div>
 
-        {/* Already have an account */}
         <p className="text-muted mb-0">
           Already have an account?{" "}
           <Link href="/auth/sign-in" className="text-primary fw-semibold">
@@ -98,7 +109,6 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      {/* Background Gradient */}
       <style jsx>{`
         .register-page {
           background: linear-gradient(135deg, #f0f4ff, #ffffff);

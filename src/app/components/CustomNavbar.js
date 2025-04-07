@@ -59,6 +59,8 @@ const CustomNavbar = () => {
           >
             <span style={{ width: "30px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
             <span style={{ width: "20px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+            <span style={{ width: "10px", height: "3px", backgroundColor: "#000", borderRadius: "2px" }}></span>
+
           </button>
 
           {/* Center - Logo */}

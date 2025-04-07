@@ -1,17 +1,14 @@
-// File: src/app/api/auth/[...nextauth]/route.js
-
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 // Temporary in-memory user list (replace with DB later)
 const users = [
-  { email: "demo@example.com", password: "demo123" } // 👈 for testing
+  { email: "demo@example.com", password: "demo123" }
 ];
 
 const handler = NextAuth({
   providers: [
-    // ✅ Credentials Provider (Email/Password login)
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -28,11 +25,9 @@ const handler = NextAuth({
           return { id: user.email, email: user.email };
         }
 
-        return null; // ❌ invalid credentials
+        return null;
       },
     }),
-
-    // ✅ Google Provider
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -42,7 +37,23 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
-    signIn: "/auth/sign-in", // Custom login page
+    signIn: "/auth/sign-in",
+  },
+
+  callbacks: {
+    async jwt({ token, account, user }) {
+      if (account) {
+        token.accessToken = account.access_token;
+        token.id = user?.id;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      session.user.id = token.id;
+      return session;
+    },
   },
 });
 
