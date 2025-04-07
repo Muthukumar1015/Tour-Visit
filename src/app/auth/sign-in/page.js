@@ -43,7 +43,10 @@ export default function LoginPage() {
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 login-page">
-      <div className="rounded-4 bg-white shadow-sm p-4 text-center" style={{ width: "360px" }}>
+      <div
+        className="rounded-4 bg-white shadow-sm p-4 text-center"
+        style={{ width: "360px" }}
+      >
         <h4 className="fw-bold mb-4">Sign In to recharge Direct</h4>
 
         {error && <div className="alert alert-danger py-1">{error}</div>}
@@ -74,12 +77,18 @@ export default function LoginPage() {
         </div>
 
         <div className="text-end mb-3">
-          <Link href="/auth/forgot-password" className="text-muted text-decoration-none small">
+          <Link
+            href="/auth/forgot-password"
+            className="text-muted text-decoration-none small"
+          >
             Recover Password?
           </Link>
         </div>
 
-        <button className="btn btn-primary w-100 rounded-pill mb-3" onClick={handleLogin}>
+        <button
+          className="btn btn-primary w-100 rounded-pill mb-3"
+          onClick={handleLogin}
+        >
           Sign In
         </button>
 
@@ -88,14 +97,26 @@ export default function LoginPage() {
         <div className="d-flex justify-content-center gap-3 mb-3">
           <button
             className="btn btn-light rounded-circle border"
-            onClick={() => signIn("google", { callbackUrl: "/profile" })}
+            onClick={() =>
+              signIn("google", {
+                callbackUrl: "/profile",
+                redirect: true, // more reliable on mobile
+              })
+            }
           >
             <FaGoogle />
           </button>
-          <button className="btn btn-light rounded-circle border" onClick={() => signIn("apple")}>
+
+          <button
+            className="btn btn-light rounded-circle border"
+            onClick={() => signIn("apple")}
+          >
             <FaApple />
           </button>
-          <button className="btn btn-light rounded-circle border" onClick={() => signIn("facebook")}>
+          <button
+            className="btn btn-light rounded-circle border"
+            onClick={() => signIn("facebook")}
+          >
             <FaFacebook />
           </button>
         </div>

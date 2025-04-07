@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Temporary in-memory user list (replace with DB later)
+// You can replace this with a real DB later
 const users = [
   { email: "demo@example.com", password: "demo123" }
 ];
@@ -18,7 +18,8 @@ const handler = NextAuth({
       async authorize(credentials) {
         const user = users.find(
           (u) =>
-            u.email === credentials.email && u.password === credentials.password
+            u.email === credentials.email &&
+            u.password === credentials.password
         );
 
         if (user) {
@@ -28,6 +29,7 @@ const handler = NextAuth({
         return null;
       },
     }),
+
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,

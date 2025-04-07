@@ -11,14 +11,12 @@ export default function ProfilePage() {
   const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null);
 
-  // Redirect to sign-in if not authenticated
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/auth/sign-in");
     }
   }, [status, router]);
 
-  // Load image from localStorage
   useEffect(() => {
     const savedImage = localStorage.getItem("customProfileImage");
     if (savedImage) {
@@ -30,7 +28,6 @@ export default function ProfilePage() {
     }
   }, [session]);
 
-  // Handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
@@ -44,7 +41,6 @@ export default function ProfilePage() {
     }
   };
 
-  // Logout
   const handleLogout = () => {
     localStorage.removeItem("customProfileImage");
     signOut({ callbackUrl: "/auth/sign-in" });
@@ -67,15 +63,13 @@ export default function ProfilePage() {
           className="rounded-circle border border-2"
         />
 
-        {!profileImage && (
-          <button
-            className="position-absolute bottom-0 end-0 bg-white border rounded-circle p-2"
-            onClick={() => fileInputRef.current.click()}
-            style={{ border: "1px solid #ccc" }}
-          >
-            <FaCamera />
-          </button>
-        )}
+        <button
+          className="position-absolute bottom-0 end-0 bg-white border rounded-circle p-2"
+          onClick={() => fileInputRef.current.click()}
+          style={{ border: "1px solid #ccc" }}
+        >
+          <FaCamera />
+        </button>
 
         <input
           type="file"
